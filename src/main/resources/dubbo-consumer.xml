@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	   http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+	   ">
+	   
+	<dubbo:application name="wechatreport" />
+	<dubbo:registry protocol="zookeeper" address="192.168.0.1:2181"></dubbo:registry>
+    <dubbo:consumer timeout="500000" check="false" />
+    <dubbo:monitor protocol="registry"/>
+    <dubbo:reference id="exportService" interface="com.trsdc.export.service.ExportService" timeout="500000" />
+	<dubbo:reference id="searchService" interface="com.trsdc.parameter.service.SearchService"/>
+
+	<!--es-->
+	<dubbo:reference id="esSearchService"
+					 interface="com.trs.dc.openservice.IEsSearchOpenService" />
+	<dubbo:reference id="esDatabaseService"
+					 interface="com.trs.dc.openservice.IEsDatabaseOpenService" />
+	<dubbo:reference id="esDataService"
+					 interface="com.trs.dc.openservice.IEsDataOpenService" />
+</beans>
